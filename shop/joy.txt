@@ -1,0 +1,12 @@
+QA
+CI/CD
+Cloud infrastructure
+Containerization/Docker
+Orchestration- Kubernetes
+SRE- site reliability engineering- monitor application, logging,scalability, metrics, 
+
+
+13 August 2025
+Single Object view
+Template,view,route
+
