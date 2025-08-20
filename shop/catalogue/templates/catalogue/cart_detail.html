@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1" />
+   <title>Your Cart</title>
+   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-4xl font-bold mb-8">Your Cart</h1>
+
+        {% if cart_items %}
+        <div class="space-y-6">
+            {% for item in cart_items %}
+            <div class="bg-white p-6 rounded shadow flex items-center justify-between">
+                <div class="flex items-center space-x-6">
+                    {% if item.product.image %}
+                    <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="w-24 h-24 object-cover rounded" />
+                    {% endif %}
+                    <div>
+                        <h2 class="text-2xl font-semibold">{{ item.product.name }}</h2>
+                        <p>Quantity: {{ item.quantity }}</p>
+                        <p>Price: KSH{{ item.product.price }}</p>
+                        <p>Subtotal: ${{ item.subtotal }}</p>
+                    </div>
+                </div>
+                <div>
+                    <form action="{% url 'remove_from_cart' product_id=item.product.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded">
+                            Remove
+                        </button>
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="mt-8 text-3xl font-bold text-right">
+            Total: ${{ total }}
+        </div>
+        {% else %}
+        <p>Your cart is empty.</p>
+        <a href="{% url 'list_products' %}" class="text-blue-600 hover:underline">Back to products</a>
+        {% endif %}
+    </div>
+</body>
+</html>
